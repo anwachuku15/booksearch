@@ -3,7 +3,7 @@ const term = require('terminal-kit').terminal
 const chalk = require('chalk')
 const boxen = require('boxen')
 const readline = require('readline-sync')
-
+// const inquirer = require('inquirer')
 
 const { fetchBooks, addToList, viewList } = require('../actions')
 
@@ -45,8 +45,34 @@ const app = async () => {
                 console.log(`${i}. ${book.title}\n   ${book.author}\n   ${book.publisher}\n`)
                 i++
             })
-            navTo = 'addToList'
+            // navTo = 'addToList'
+            navTo = 'options'
         }
+
+        if (navTo === 'options') {
+            inquirer.prompt([{
+                type: 'list',
+                message: 'What would you like to do next?',
+                choices: ['Search for another book', 'Add a book to my reading list', 'View my reading list', 'Exit'],
+                name: 'menu'
+            }])
+            .then(answer => {
+                if (answer.menu === 'Search for another book') {
+                    navTo = 'query'
+                }
+                if (answer.menu === 'Add a book to my reading list') {
+                    navTo = 'addToList'
+                }
+                if (answer.menu === 'Add a book to my reading list') {
+                    navTo = 'View my reading list'
+                }
+                if (answer.menu === 'Exit') {
+                    return 
+                }
+            })
+        }
+        
+
         // allow user to add a book to their reading list
         if (navTo === 'addToList') {
             const selectedBook = readline.question("Enter the number of the book you'd like to add to your reading list.")
