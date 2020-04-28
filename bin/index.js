@@ -11,15 +11,16 @@ const styles = {
     padding: 1,
     margin: 1,
     borderStyle: 'round',
-    borderColor: 'magenta',
-    backgroundColor: 'black'
+    borderColor: 'red',
+    backgroundColor: 'cyan'
 }
 
 const greeting = () => {
-    const greetingMsg = chalk.redBright.bold('Welcome to Your Book Club!')
+    const greetingMsg = chalk.red('Welcome to Your Book Club!')
     const msgBox = boxen(greetingMsg, styles)
     console.log(msgBox)
-    term.bold.red("Let's get started!\n\n")
+    console.log('Powered by ' + chalk.bold.blue('G')+chalk.bold.red('o')+chalk.bold.yellow('o')+chalk.bold.blue('g')+chalk.bold.green('l')+chalk.bold.red('e')+chalk.bold.blueBright(' Books'))
+    term.bold.cyan("\nGo ahead and search for a book!\n\n")
 }
 
 
@@ -40,7 +41,12 @@ const app = async () => {
             // make displayed book results more user friendly
             let i = 1
             books.forEach(book => {
-                console.log(`${i}. ${book.title}\n   ${book.author}\n   ${book.publisher}\n`)
+                // Edge cases: 
+                // some authors/publisher data is undefined
+                // reformat book.authors to consider multiple authors
+                console.log(`${i}. ` + chalk.italic.bold(`${book.title}`))
+                console.log(`   ${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
+                console.log(`   ${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
                 i++
             })
             navTo = 'options'
@@ -59,7 +65,7 @@ const app = async () => {
             // allow user to add a book to their reading list
             if (parseInt(option) > 0 && parseInt(option) < 6) {
                 addToList(bookResults[option-1])
-                navTo = 'options'
+                // navTo = 'options'
             }
             if (option === 'l') {
                 navTo = 'viewList'

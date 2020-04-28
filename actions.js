@@ -22,8 +22,13 @@ const fetchBooks = async (query) => {
 
 let bookResults = []
 const addToList = (book) => {
-    bookResults.push(book)
-    console.log('You added ' + chalk.italic.bold(`${book.title}`) + ` to your list. ${confirmations[rnd]}\n`)
+    // Edge case: duplicate elements
+    if (bookResults.some(exists => exists.title === book.title && exists.author === book.author)) {
+        console.log("You've already added this book to your list.\n")
+    } else {
+        bookResults.push(book)
+        console.log('You added ' + chalk.italic.bold(`${book.title}`) + ` to your list. ${confirmations[rnd]}\n`)
+    }
 }
 
 const confirmations = [
@@ -37,12 +42,13 @@ const rnd = Math.floor(Math.random() * 4)
 const viewList = () => {
     if (bookResults.length > 0) {
         bookResults.forEach(book => {
-            console.log(`${book.title}\n${book.author}\n${book.publisher}\n`)
+            console.log(chalk.italic.bold(`${book.title}`))
+            console.log(`   ${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
+            console.log(`   ${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
         })
     } else {
         console.log('Your list is empty!\n')
     }
-    
 }
 
 
