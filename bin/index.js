@@ -45,60 +45,58 @@ const app = async () => {
                 console.log(`${i}. ${book.title}\n   ${book.author}\n   ${book.publisher}\n`)
                 i++
             })
-            // navTo = 'addToList'
             navTo = 'options'
         }
-
         if (navTo === 'options') {
-            inquirer.prompt([{
-                type: 'list',
-                message: 'What would you like to do next?',
-                choices: ['Search for another book', 'Add a book to my reading list', 'View my reading list', 'Exit'],
-                name: 'menu'
-            }])
-            .then(answer => {
-                if (answer.menu === 'Search for another book') {
-                    navTo = 'query'
-                }
-                if (answer.menu === 'Add a book to my reading list') {
-                    navTo = 'addToList'
-                }
-                if (answer.menu === 'Add a book to my reading list') {
-                    navTo = 'View my reading list'
-                }
-                if (answer.menu === 'Exit') {
-                    return 
-                }
-            })
+            console.log('---OPTIONS---\nSearch for another book (enter [s])\nAdd to your reading list (enter your desired book number)\nView your reading list (enter [l])\nExit (enter [e])\n')
+            const option = readline.question('>> ')
+            if (option === 's') {
+                navTo = 'query'
+            }
+            // allow user to add a book to their reading list
+            if (parseInt(option) > 0 && parseInt(option) < 6) {
+                addToList(bookResults[option-1])
+                navTo = 'options'
+            }
+            if (option === 'l') {
+                navTo = 'viewList'
+            }
+            if (option === 'e') {
+                navTo = 'exit'
+            }
+        }
+         // allow user to view their reading list
+         if (navTo === 'viewList') {
+            viewList()
+            navTo = 'options'
         }
         
-
-        // allow user to add a book to their reading list
-        if (navTo === 'addToList') {
-            const selectedBook = readline.question("Enter the number of the book you'd like to add to your reading list.")
-            const bookChoice = parseInt(selectedBook)
-            bookChoice > 0 && bookChoice < 6 
-                ? addToList(bookResults[bookChoice-1]) // add method to actions.js
-                : console.log('Try again. Please enter a number between 1 and 5.'); navTo==='addToList'
-            navTo = 'viewList'
-        }
-        // allow user to view their reading list
-        if (navTo === 'viewList') {
-            viewList()
-            navTo = 'query'
-        }
-        // allow user to exit app -- exit out of while loop
-        if (navTo === 'menu') {
-            console.log('almost done... refactor')
-        }
     }
-
-
-            
-
-            
-
-            
+    console.log('See you soon!')
 }
 
 app()
+
+
+        // if (navTo === 'options') {
+        //     inquirer.prompt([{
+        //         type: 'list',
+        //         message: 'What would you like to do next?',
+        //         choices: ['Search for another book', 'Add a book to my reading list', 'View my reading list', 'Exit'],
+        //         name: 'menu'
+        //     }])
+        //     .then(answer => {
+        //         if (answer.menu === 'Search for another book') {
+        //             navTo = 'query'
+        //         }
+        //         if (answer.menu === 'Add a book to my reading list') {
+        //             navTo = 'addToList'
+        //         }
+        //         if (answer.menu === 'Add a book to my reading list') {
+        //             navTo = 'View my reading list'
+        //         }
+        //         if (answer.menu === 'Exit') {
+        //             return 
+        //         }
+        //     })
+        // }
