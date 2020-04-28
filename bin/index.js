@@ -3,7 +3,9 @@ const term = require('terminal-kit').terminal
 const chalk = require('chalk')
 const boxen = require('boxen')
 const readline = require('readline-sync')
-const { apikey } = require('../apikey')
+
+
+const { fetchBooks } = require('../actions')
 
 const styles = {
     padding: 1,
@@ -20,7 +22,7 @@ const greeting = () => {
     term.bold.red("Let's get started!\n\n")
 }
 
-const app = () => {
+const app = async () => {
     let navTo = 'greeting'
     // Run app until user exits - WHILE LOOP
     while (navTo !== 'exit') {
@@ -31,9 +33,9 @@ const app = () => {
             navTo = 'query'
         }
         if (navTo === 'query') {
-            // readline sync module
             const query = readline.question('Search: ')
-            console.log(query)
+            const books = await fetchBooks(query)
+            console.log(books)
         }
     }
 
