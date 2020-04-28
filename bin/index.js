@@ -2,6 +2,7 @@
 const term = require('terminal-kit').terminal
 const chalk = require('chalk')
 const boxen = require('boxen')
+const readline = require('readline-sync')
 
 const styles = {
     padding: 1,
@@ -19,11 +20,22 @@ const greeting = () => {
 }
 
 const app = () => {
-    greeting()
-
+    let navTo = 'greeting'
     // Run app until user exits - WHILE LOOP
-        // Navigate thru app?? -- IF STATEMENTS
-            // allow user to search for a book - display 5 results
+    while (navTo !== 'exit') {
+    // Navigate thru app?? -- IF STATEMENTS
+        // allow user to search for a book - display 5 results
+        if (navTo === 'greeting') {
+            greeting()
+            navTo = 'query'
+        }
+        if (navTo === 'query') {
+            // readline sync module
+            const query = readline.question('Search: ')
+            console.log(query)
+        }
+    }
+
 
             // allow user to add a book to their reading list
 
