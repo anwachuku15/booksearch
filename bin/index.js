@@ -3,7 +3,7 @@ const term = require('terminal-kit').terminal
 const chalk = require('chalk')
 const boxen = require('boxen')
 const readline = require('readline-sync')
-// const inquirer = require('inquirer')
+const emoji = require('emojic')
 
 const { fetchBooks, addToList, viewList } = require('../actions')
 
@@ -12,11 +12,11 @@ const styles = {
     margin: 1,
     borderStyle: 'round',
     borderColor: 'red',
-    backgroundColor: 'cyan'
+    backgroundColor: 'blue'
 }
 
 const greeting = () => {
-    const greetingMsg = chalk.red('Welcome to Your Book Club!')
+    const greetingMsg = chalk.white(`${emoji.books} Welcome to Your Book Club! ${emoji.books}`)
     const msgBox = boxen(greetingMsg, styles)
     console.log(msgBox)
     console.log('Powered by ' + chalk.bold.blue('G')+chalk.bold.red('o')+chalk.bold.yellow('o')+chalk.bold.blue('g')+chalk.bold.green('l')+chalk.bold.red('e')+chalk.bold.blueBright(' Books'))
@@ -35,11 +35,12 @@ const app = async () => {
             navTo = 'query'
         }
         if (navTo === 'query') {
-            const query = readline.question('Search: ')
+            const query = readline.question(`Search ${emoji.magRight}: `)
             const books = await fetchBooks(query)
             bookResults = books
             // make displayed book results more user friendly
             let i = 1
+            console.log('')
             books.forEach(book => {
                 // Edge cases: 
                 // some authors/publisher data is undefined
@@ -54,27 +55,25 @@ const app = async () => {
         if (navTo === 'options') {
             
             console.log('---OPTIONS---')
-            console.log(chalk.cyan('Enter the number of the book you\'d like to save to your reading list'))
+            console.log(chalk.cyan('Enter the number') + chalk.cyan.bold(' [1-5] ') + chalk.cyan('of the book you\'d like to save to your reading list'))
             console.log(chalk.greenBright.bold('Enter [s]') + chalk.greenBright(' to find another book.'))
             console.log(chalk.blueBright.bold('Enter [l]') + chalk.blueBright(' to view your reading list.'))
             console.log(chalk.red.bold('Enter [e]') + chalk.red(' to exit.'))
             const option = readline.question('>> ')
             if (option === 's') {
                 navTo = 'query'
-            }
-            // allow user to add a book to their reading list
-            if (parseInt(option) > 0 && parseInt(option) < 6) {
+            } else if (parseInt(option) > 0 && parseInt(option) < 6) {
                 addToList(bookResults[option-1])
-                // navTo = 'options'
-            }
-            if (option === 'l') {
+            } else if (option === 'l') {
                 navTo = 'viewList'
-            }
-            if (option === 'e') {
+            } else if (option === 'e') {
                 navTo = 'exit'
+            } else {
+                console.log(`\n` + chalk.bold.red('Try again. Choose from one of the following options:') + `\n`)
             }
+            
+            
         }
-         // allow user to view their reading list
          if (navTo === 'viewList') {
             viewList()
             navTo = 'options'
