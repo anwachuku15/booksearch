@@ -29,7 +29,6 @@ const addToList = (book) => {
         console.log('\nYou added ' + chalk.italic.bold(`${book.title}`) + ` to your list. ${confirmations[rnd]}\n`)
     }
 }
-
 const confirmations = [
     'Good choice!',
     'Great book!',
@@ -42,7 +41,7 @@ const viewList = () => {
     console.log('\n'+chalk.bold.underline.blue('My Reading List'))
     if (bookResults.length > 0) {
         bookResults.forEach(book => {
-            console.log(chalk.italic.bold(`${book.title}`))
+            console.log(chalk.white.italic.bold(`${book.title}`))
             console.log(`${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
             console.log(`${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
         })
