@@ -3,6 +3,7 @@ const term = require('terminal-kit').terminal
 const chalk = require('chalk')
 const boxen = require('boxen')
 const readline = require('readline-sync')
+const { apikey } = require('../apikey')
 
 const styles = {
     padding: 1,
