@@ -26,10 +26,7 @@ const greeting = () => {
 
 const app = async () => {
     let navTo = 'greeting'
-    // Run app until user exits - WHILE LOOP
     while (navTo !== 'exit') {
-    // Navigate thru app?? -- IF STATEMENTS
-        // allow user to search for a book - display 5 results
         if (navTo === 'greeting') {
             greeting()
             navTo = 'query'
@@ -38,13 +35,10 @@ const app = async () => {
             const query = readline.question(`Search ${emoji.magRight}: `)
             const books = await fetchBooks(query)
             bookResults = books
-            // make displayed book results more user friendly
+
             let i = 1
             console.log('')
             books.forEach(book => {
-                // Edge cases: 
-                // some authors/publisher data is undefined
-                // reformat book.authors to consider multiple authors
                 console.log(`${i}. ` + chalk.italic.bold(`${book.title}`))
                 console.log(`   ${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
                 console.log(`   ${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
@@ -53,7 +47,6 @@ const app = async () => {
             navTo = 'options'
         }
         if (navTo === 'options') {
-            
             console.log('---OPTIONS---')
             console.log(chalk.cyan('Enter the number') + chalk.cyan.bold(' [1-5] ') + chalk.cyan('of the book you\'d like to save to your reading list'))
             console.log(chalk.greenBright.bold('Enter [s]') + chalk.greenBright(' to find another book.'))
@@ -65,22 +58,15 @@ const app = async () => {
             } else if (parseInt(option) > 0 && parseInt(option) < 6) {
                 addToList(bookResults[option-1])
             } else if (option === 'l') {
-                navTo = 'viewList'
+                viewList()
             } else if (option === 'e') {
                 navTo = 'exit'
             } else {
                 console.log(`\n` + chalk.bold.red('Try again. Choose from one of the following options:') + `\n`)
             }
-            
-            
         }
-         if (navTo === 'viewList') {
-            viewList()
-            navTo = 'options'
-        }
-        
     }
-    console.log('See you soon!')
+    console.log(chalk.cyan(`\nSee you soon! ${emoji.wave}\n`))
 }
 
 app()
