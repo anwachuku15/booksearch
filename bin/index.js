@@ -35,7 +35,12 @@ const app = async () => {
         if (navTo === 'query') {
             const query = readline.question('Search: ')
             const books = await fetchBooks(query)
-            console.log(books)
+            // make displayed book results more user friendly
+            let i = 1
+            books.forEach(book => {
+                console.log(`${i}. ${book.title}\n   ${book.author}\n   ${book.publisher}\n`)
+                i++
+            })
         }
     }
 
