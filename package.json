@@ -1,0 +1,14 @@
+{
+  "name": "booksearch",
+  "version": "1.0.0",
+  "description": "Utilizes the Google Books API to allow users to search for books and create a reading list",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Nwachuku",
+  "license": "MIT",
+  "bin": {
+    "booksearch": "./bin/index.js"
+  }
+}
