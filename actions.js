@@ -19,4 +19,8 @@ const fetchBooks = async (query) => {
     return books
 }
 
-module.exports = { fetchBooks }
+const addToList = (book) => {
+    
+}
+
+module.exports = { fetchBooks, addToList }

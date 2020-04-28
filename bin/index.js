@@ -5,7 +5,7 @@ const boxen = require('boxen')
 const readline = require('readline-sync')
 
 
-const { fetchBooks } = require('../actions')
+const { fetchBooks, addToList } = require('../actions')
 
 const styles = {
     padding: 1,
@@ -22,6 +22,9 @@ const greeting = () => {
     term.bold.red("Let's get started!\n\n")
 }
 
+
+let bookResults = []
+
 const app = async () => {
     let navTo = 'greeting'
     // Run app until user exits - WHILE LOOP
@@ -35,17 +38,27 @@ const app = async () => {
         if (navTo === 'query') {
             const query = readline.question('Search: ')
             const books = await fetchBooks(query)
+            bookResults = books
             // make displayed book results more user friendly
             let i = 1
             books.forEach(book => {
                 console.log(`${i}. ${book.title}\n   ${book.author}\n   ${book.publisher}\n`)
                 i++
             })
+            navTo = 'addToList'
+        }
+        // allow user to add a book to their reading list
+        if (navTo === 'addToList') {
+            const selectedBook = readline.question("Enter the number of the book you'd like to add to your reading list.")
+            const bookChoice = parseInt(selectedBook)
+            bookChoice > 0 && bookChoice < 6 
+                ? addToList(bookResults[bookChoice-1]) // add method to actions.js
+                : console.log('Try again. Please enter a number between 1 and 5.'); navTo==='addToList'
         }
     }
 
 
-            // allow user to add a book to their reading list
+            
 
             // allow user to view their reading list
 
