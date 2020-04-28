@@ -12,7 +12,7 @@
     "commandLine": [
       "node",
       "/usr/local/bin/booksearch"
-    ],
+    ], 
     "nodejsVersion": "v12.16.1",
     "wordSize": 64,
     "arch": "x64",
