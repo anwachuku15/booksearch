@@ -18,4 +18,4 @@ const showOptions = () => {
     console.log('')
 }
 
-module.exports = { showOptions, condensedOptions }
+module.exports = { showOptions }

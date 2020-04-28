@@ -4,7 +4,7 @@ const chalk = require('chalk')
 const emoji = require('emojic')
 
 const { greeting } = require('../UI/greeting')
-const { showOptions, condensedOptions } = require('../UI/options')
+const { showOptions } = require('../UI/options')
 const { fetchBooks, addToList, viewList } = require('../actions')
 
 const app = async () => {
