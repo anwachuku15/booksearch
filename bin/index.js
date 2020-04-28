@@ -23,8 +23,6 @@ const greeting = () => {
 }
 
 
-
-
 const app = async () => {
     let navTo = 'greeting'
     // Run app until user exits - WHILE LOOP
@@ -48,7 +46,12 @@ const app = async () => {
             navTo = 'options'
         }
         if (navTo === 'options') {
-            console.log('---OPTIONS---\nSearch for another book (enter [s])\nAdd to your reading list (enter your desired book number)\nView your reading list (enter [l])\nExit (enter [e])\n')
+            
+            console.log('---OPTIONS---')
+            console.log(chalk.cyan('Enter the number of the book you\'d like to save to your reading list'))
+            console.log(chalk.greenBright.bold('Enter [s]') + chalk.greenBright(' to find another book.'))
+            console.log(chalk.blueBright.bold('Enter [l]') + chalk.blueBright(' to view your reading list.'))
+            console.log(chalk.red.bold('Enter [e]') + chalk.red(' to exit.'))
             const option = readline.question('>> ')
             if (option === 's') {
                 navTo = 'query'
@@ -76,27 +79,3 @@ const app = async () => {
 }
 
 app()
-
-
-        // if (navTo === 'options') {
-        //     inquirer.prompt([{
-        //         type: 'list',
-        //         message: 'What would you like to do next?',
-        //         choices: ['Search for another book', 'Add a book to my reading list', 'View my reading list', 'Exit'],
-        //         name: 'menu'
-        //     }])
-        //     .then(answer => {
-        //         if (answer.menu === 'Search for another book') {
-        //             navTo = 'query'
-        //         }
-        //         if (answer.menu === 'Add a book to my reading list') {
-        //             navTo = 'addToList'
-        //         }
-        //         if (answer.menu === 'Add a book to my reading list') {
-        //             navTo = 'View my reading list'
-        //         }
-        //         if (answer.menu === 'Exit') {
-        //             return 
-        //         }
-        //     })
-        // }
