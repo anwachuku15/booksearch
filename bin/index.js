@@ -5,7 +5,7 @@ const boxen = require('boxen')
 const readline = require('readline-sync')
 
 
-const { fetchBooks, addToList } = require('../actions')
+const { fetchBooks, addToList, viewList } = require('../actions')
 
 const styles = {
     padding: 1,
@@ -23,7 +23,7 @@ const greeting = () => {
 }
 
 
-let bookResults = []
+
 
 const app = async () => {
     let navTo = 'greeting'
@@ -54,15 +54,25 @@ const app = async () => {
             bookChoice > 0 && bookChoice < 6 
                 ? addToList(bookResults[bookChoice-1]) // add method to actions.js
                 : console.log('Try again. Please enter a number between 1 and 5.'); navTo==='addToList'
+            navTo = 'viewList'
+        }
+        // allow user to view their reading list
+        if (navTo === 'viewList') {
+            viewList()
+            navTo = 'query'
+        }
+        // allow user to exit app -- exit out of while loop
+        if (navTo === 'menu') {
+            console.log('almost done... refactor')
         }
     }
 
 
             
 
-            // allow user to view their reading list
+            
 
-            // allow user to exit app -- exit out of while loop
+            
 }
 
 app()

@@ -19,8 +19,15 @@ const fetchBooks = async (query) => {
     return books
 }
 
+let bookResults = []
 const addToList = (book) => {
-    
+    bookResults.push(book)
 }
 
-module.exports = { fetchBooks, addToList }
+const viewList = () => {
+    bookResults.forEach(book => {
+        console.log(`${book.title}\n${book.author}\n${book.publisher}\n`)
+    })
+}
+
+module.exports = { fetchBooks, addToList, viewList }
