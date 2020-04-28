@@ -10,5 +10,10 @@
   "license": "MIT",
   "bin": {
     "booksearch": "./bin/index.js"
+  },
+  "dependencies": {
+    "boxen": "^4.2.0",
+    "chalk": "^4.0.0",
+    "terminal-kit": "^1.35.2"
   }
 }
