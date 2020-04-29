@@ -26,6 +26,7 @@ const addToList = (book) => {
         console.log("You've already added this book to your list.\n")
     } else {
         bookResults.push(book)
+        let rnd = Math.floor(Math.random() * 4)
         console.log('\nYou added ' + chalk.italic.bold(`${book.title}`) + ` to your list. ${confirmations[rnd]}\n`)
     }
 }
@@ -35,7 +36,7 @@ const confirmations = [
     'Enjoy!',
     'That\'s a good one!'
 ]
-const rnd = Math.floor(Math.random() * 4)
+
 
 const viewList = () => {
     console.log('\n'+chalk.bold.underline.blue('My Reading List'))

@@ -37,8 +37,10 @@ const app = async () => {
                 navTo = 'query'
             } else if (parseInt(option) > 0 && parseInt(option) < 6) {
                 addToList(bookResults[option-1])
+                navTo = 'options'
             } else if (option === 'l') {
                 viewList()
+                navTo = 'options'
             } else if (option === 'e') {
                 navTo = 'exit'
             } else {
