@@ -43,6 +43,7 @@ const app = async () => {
                 navTo = 'exit'
             } else {
                 console.log(`\n` + chalk.bold.red('Try again. Choose from one of the following options:') + `\n`)
+                showOptions()
             }
         }
     }
