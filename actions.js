@@ -2,9 +2,12 @@ const fs = require('fs')
 const path = require('path')
 const util = require('util')
 
+
 const fetch = require('node-fetch')
 const { apikey } = require('./apikey')
 const chalk = require('chalk')
+
+
 
 const fetchBooks = async (query) => {
     const url = 'https://www.googleapis.com/books/v1/volumes?q='
@@ -27,10 +30,8 @@ const fetchBooks = async (query) => {
 
 const addToList = (book) => {
     try {
-        console.log(__dirname)
-        console.log(process.cwd())
         
-        const data = fs.readFileSync('./bin/my-reading-list.json', 'utf-8')
+        const data = fs.readFileSync(path.join(__dirname + '/bin/my-reading-list.json'), 'utf-8')
         let readingListData = JSON.parse(data)
         if (readingListData.books.some(exists => exists.title === book.title && util.inspect(exists.author) === util.inspect(book.author))) {
             console.log("You've already added this book to your list.\n")
