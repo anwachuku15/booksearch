@@ -46,7 +46,7 @@ const addToList = (book) => {
                 let rnd = Math.floor(Math.random() * 4)
                 console.log(
                     '\nYou added ' + 
-                    chalk.italic.bold(`${book.title}`) + 
+                    chalk.white.italic.bold(`${book.title}`) + 
                     ` to your list. ${confirmations[rnd]}\n`
                 )
             } catch (err) {
