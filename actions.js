@@ -1,3 +1,7 @@
+const fs = require('fs')
+const util = require('util')
+const path = require('path')
+
 const fetch = require('node-fetch')
 const { apikey } = require('./apikey')
 const chalk = require('chalk')
@@ -20,14 +24,33 @@ const fetchBooks = async (query) => {
     return books
 }
 
-let bookResults = []
+
 const addToList = (book) => {
-    if (bookResults.some(exists => exists.title === book.title && exists.author === book.author)) {
-        console.log("You've already added this book to your list.\n")
-    } else {
-        bookResults.push(book)
-        let rnd = Math.floor(Math.random() * 4)
-        console.log('\nYou added ' + chalk.italic.bold(`${book.title}`) + ` to your list. ${confirmations[rnd]}\n`)
+    try {
+        const data = fs.readFileSync('./my-reading-list.json', 'utf-8')
+        let readingListData = JSON.parse(data)
+        if (readingListData.books.some(exists => exists.title === book.title && util.inspect(exists.author) === util.inspect(book.author))) {
+            console.log("You've already added this book to your list.\n")
+        } else {
+            readingListData.books.push({
+                title: book.title,
+                author: book.author,
+                publisher: book.publisher
+            })
+            try {
+                const data = fs.writeFileSync('./my-reading-list.json', JSON.stringify(readingListData))
+                let rnd = Math.floor(Math.random() * 4)
+                console.log(
+                    '\nYou added ' + 
+                    chalk.italic.bold(`${book.title}`) + 
+                    ` to your list. ${confirmations[rnd]}\n`
+                )
+            } catch (err) {
+                console.error(err)
+            }
+        }
+    } catch (err) {
+        console.error(err)
     }
 }
 const confirmations = [
@@ -37,17 +60,23 @@ const confirmations = [
     'That\'s a good one!'
 ]
 
-
 const viewList = () => {
     console.log('\n'+chalk.bold.underline.blue('My Reading List'))
-    if (bookResults.length > 0) {
-        bookResults.forEach(book => {
-            console.log(chalk.white.italic.bold(`${book.title}`))
-            console.log(`${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
-            console.log(`${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
-        })
-    } else {
-        console.log('Your list is empty!\n')
+    try {
+        const data = fs.readFileSync('./my-reading-list.json', 'utf-8')
+        let readingListData = JSON.parse(data)
+        
+        if (readingListData.books.length > 0) {
+            readingListData.books.forEach(book => {
+                console.log(chalk.white.italic.bold(`${book.title}`))
+                console.log(`${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
+                console.log(`${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
+            })
+        } else {
+            console.log('Your list is empty!\n')
+        }
+    } catch (err) {
+        console.error(err)
     }
 }
 
