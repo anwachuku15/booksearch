@@ -14,23 +14,28 @@ const app = async () => {
             greeting()
             navTo = 'query'
         }
+        
         if (navTo === 'query') {
             const query = readline.question(`Search ${emoji.magRight}: `)
-            const books = await fetchBooks(query)
-            bookResults = books
-
-            console.log('')
-            let i = 1
-            books.forEach(book => {
-                console.log(`${i}. ` + chalk.white.italic.bold(`${book.title}`))
-                console.log(`   ${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
-                console.log(`   ${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
-                i++
-            })
-            console.log('---MENU---')
-            showOptions()
-            navTo = 'options'
+            try {
+                const books = await fetchBooks(query)
+                bookResults = books
+                console.log('')
+                let i = 1
+                books.forEach(book => {
+                    console.log(`${i}. ` + chalk.white.italic.bold(`${book.title}`))
+                    console.log(`   ${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
+                    console.log(`   ${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
+                    i++
+                })
+                console.log('---MENU---')
+                showOptions()
+                navTo = 'options'
+            } catch (err) {
+                console.log(err)
+            }
         }
+
         if (navTo === 'options') {
             const option = readline.question('>> ')
             if (option === 's') {

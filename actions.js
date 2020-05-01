@@ -4,27 +4,35 @@ const util = require('util')
 
 
 const fetch = require('node-fetch')
-const { apikey } = require('./apikey')
+// const { apikey } = require('./apikey')
 const chalk = require('chalk')
 
 
 
 const fetchBooks = async (query) => {
     const url = 'https://www.googleapis.com/books/v1/volumes?q='
-    const queryResponse = await fetch(`${url}${query}&maxResults=5&${apikey}`)
+    let queryResponse
+    try {
+        queryResponse = await fetch(`${url}${query}&maxResults=5`)
                        .then(res => {
                            return res.json()
                        })
-    const books = []
-    queryResponse.items.forEach(item => {
-        const book = {
-            title: item.volumeInfo.title,
-            author: item.volumeInfo.authors,
-            publisher: item.volumeInfo.publisher
-        }
-        books.push(book)
-    })
-    return books
+                       .catch(err => {
+                           console.error(err)
+                       })
+        const books = []
+        queryResponse.items.forEach(item => {
+            const book = {
+                title: item.volumeInfo.title,
+                author: item.volumeInfo.authors,
+                publisher: item.volumeInfo.publisher
+            }
+            books.push(book)
+        })
+        return books
+    } catch (err) {
+        throw new Error(chalk.red('Hmm, something went wrong. Blame Google.'))
+    }
 }
 
 
