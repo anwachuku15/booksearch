@@ -17,6 +17,7 @@
     "emojic": "^1.1.15",
     "inquirer": "^7.1.0",
     "node-fetch": "^2.6.0",
+    "node-localstorage": "^2.1.6",
     "readline-sync": "^1.4.10",
     "terminal-kit": "^1.35.2"
   }

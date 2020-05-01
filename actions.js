@@ -1,6 +1,6 @@
 const fs = require('fs')
-const util = require('util')
 const path = require('path')
+const util = require('util')
 
 const fetch = require('node-fetch')
 const { apikey } = require('./apikey')
@@ -27,7 +27,10 @@ const fetchBooks = async (query) => {
 
 const addToList = (book) => {
     try {
-        const data = fs.readFileSync('./my-reading-list.json', 'utf-8')
+        console.log(__dirname)
+        console.log(process.cwd())
+        
+        const data = fs.readFileSync('./bin/my-reading-list.json', 'utf-8')
         let readingListData = JSON.parse(data)
         if (readingListData.books.some(exists => exists.title === book.title && util.inspect(exists.author) === util.inspect(book.author))) {
             console.log("You've already added this book to your list.\n")
@@ -38,7 +41,7 @@ const addToList = (book) => {
                 publisher: book.publisher
             })
             try {
-                const data = fs.writeFileSync('./my-reading-list.json', JSON.stringify(readingListData))
+                const data = fs.writeFileSync('./bin/my-reading-list.json', JSON.stringify(readingListData))
                 let rnd = Math.floor(Math.random() * 4)
                 console.log(
                     '\nYou added ' + 
@@ -63,7 +66,7 @@ const confirmations = [
 const viewList = () => {
     console.log('\n'+chalk.bold.underline.blue('My Reading List'))
     try {
-        const data = fs.readFileSync('./my-reading-list.json', 'utf-8')
+        const data = fs.readFileSync('./bin/my-reading-list.json', 'utf-8')
         let readingListData = JSON.parse(data)
         
         if (readingListData.books.length > 0) {
