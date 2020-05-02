@@ -1,44 +1,41 @@
 const fs = require('fs')
 const path = require('path')
 const util = require('util')
-
-
 const fetch = require('node-fetch')
-// const { apikey } = require('./apikey')
 const chalk = require('chalk')
+const { apikey } = require('./apikey')
+const { displayBooks } = require('./UI/displayBooks')
 
-
-
+// Searching UX
+// Sever request timeout
 const fetchBooks = async (query) => {
     const url = 'https://www.googleapis.com/books/v1/volumes?q='
-    let queryResponse
     try {
-        queryResponse = await fetch(`${url}${query}&maxResults=5`)
-                       .then(res => {
-                           return res.json()
-                       })
-                       .catch(err => {
-                           console.error(err)
-                       })
+        const queryResponse = await fetch(`${url}${query}&maxResults=5&${apikey}`)
+        const res = await queryResponse.json()
+
         const books = []
-        queryResponse.items.forEach(item => {
-            const book = {
-                title: item.volumeInfo.title,
-                author: item.volumeInfo.authors,
-                publisher: item.volumeInfo.publisher
-            }
-            books.push(book)
-        })
-        return books
+        if (!res.error) {
+            res.items.forEach(item => {
+                const book = {
+                    title: item.volumeInfo.title,
+                    author: item.volumeInfo.authors,
+                    publisher: item.volumeInfo.publisher
+                }
+                books.push(book)
+            })
+            return books
+        } else {
+            throw new Error(chalk.redBright.bold('Google Books API Error: ' + res.error.message))
+        }
     } catch (err) {
-        throw new Error(chalk.red('Hmm, something went wrong. Blame Google.'))
+        throw (chalk.redBright.bold(err))
     }
 }
 
 
 const addToList = (book) => {
     try {
-        
         const data = fs.readFileSync(path.join(__dirname + '/my-reading-list.json'), 'utf-8')
         let readingListData = JSON.parse(data)
         if (readingListData.books.some(exists => exists.title === book.title && util.inspect(exists.author) === util.inspect(book.author))) {
@@ -79,11 +76,7 @@ const viewList = () => {
         let readingListData = JSON.parse(data)
         
         if (readingListData.books.length > 0) {
-            readingListData.books.forEach(book => {
-                console.log(chalk.white.italic.bold(`${book.title}`))
-                console.log(`${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
-                console.log(`${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
-            })
+            displayBooks(readingListData.books)
         } else {
             console.log('Your list is empty!\n')
         }

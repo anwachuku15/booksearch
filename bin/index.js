@@ -5,6 +5,7 @@ const emoji = require('emojic')
 
 const { greeting } = require('../UI/greeting')
 const { showOptions } = require('../UI/options')
+const { displayBooks } = require('../UI/displayBooks')
 const { fetchBooks, addToList, viewList } = require('../actions')
 
 const app = async () => {
@@ -21,13 +22,8 @@ const app = async () => {
                 const books = await fetchBooks(query)
                 bookResults = books
                 console.log('')
-                let i = 1
-                books.forEach(book => {
-                    console.log(`${i}. ` + chalk.white.italic.bold(`${book.title}`))
-                    console.log(`   ${book.author ? book.author.join(', ') : chalk.gray('unknown author(s)')}`)
-                    console.log(`   ${book.publisher ? book.publisher : chalk.gray('unknown publisher')}\n`)
-                    i++
-                })
+                displayBooks(books)
+                
                 console.log('---MENU---')
                 showOptions()
                 navTo = 'options'
