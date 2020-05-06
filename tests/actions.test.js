@@ -1,5 +1,4 @@
-jest.mock('../actions')
-const { bookConfig, fetchBooks } = require('../actions')
+const { bookConfig } = require('../actions')
 
 const query = 'harrypotter'
 const fetchResults = {
@@ -25,14 +24,3 @@ describe('bookConfig', () => {
         expect(firstBook).toMatchObject(book)
     })
 })
-
-
-// describe('fetchBooks', () => {
-//     it('should return an array of books', () => {
-//         expect.assertions(1)
-//         fetchBooks(query).then(res => {
-//             console.log(res)
-//             expect(res[0]).toBe('Fantastic Beasts and Where to Find Them')
-//         })
-//     })
-// })
