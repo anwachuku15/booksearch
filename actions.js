@@ -33,7 +33,6 @@ const fetchBooks = async (query) => {
     }
 }
 
-
 const addToList = (book) => {
     try {
         const data = fs.readFileSync(path.join(__dirname + '/my-reading-list.json'), 'utf-8')

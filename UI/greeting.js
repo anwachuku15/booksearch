@@ -3,6 +3,7 @@ const boxen = require('boxen')
 const chalk = require('chalk')
 const emoji = require('emojic')
 
+const greetingMsg = chalk.white(`${emoji.books} Welcome to Your Book Club! ${emoji.books}`)
 const styles = {
     padding: 1,
     margin: 1,
@@ -10,10 +11,9 @@ const styles = {
     borderColor: 'red',
     backgroundColor: 'blue'
 }
+const msgBox = boxen(greetingMsg, styles)
 
 const greeting = () => {
-    const greetingMsg = chalk.white(`${emoji.books} Welcome to Your Book Club! ${emoji.books}`)
-    const msgBox = boxen(greetingMsg, styles)
     console.log(msgBox)
     console.log(
         'Powered by ' + 
@@ -28,4 +28,4 @@ const greeting = () => {
     term.bold.cyan("\nGo ahead and search for a book!\n\n")
 }
 
-module.exports = { greeting }
+module.exports = { greeting, msgBox }
