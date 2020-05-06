@@ -1,21 +1,28 @@
-jest.mock('../actions')
-
 const { apikey } = require('../apikey')
 
 const url = 'https://www.googleapis.com/books/v1/volumes?q='
 
-const fetchResults = {
-    items: [
-        {
-            title: 'Fantastic Beasts and Where to Find Them',
-            author: [ 'J.K. Rowling', 'Newt Scamander' ],
-            publisher: 'Pottermore Publishing'
-        }
-    ]
+
+const bookConfig = (res) => {
+    const books = []
+    if (!res.error) {
+        res.items.forEach(item => {
+            const book = {
+                title: item.volumeInfo.title,
+                author: item.volumeInfo.authors,
+                publisher: item.volumeInfo.publisher
+            }
+            books.push(book)
+        })
+        return books
+    } else {
+        throw new Error(chalk.redBright.bold('Google Books API Error: ' + res.error.message))
+    }
 }
+
 
 const fetchBooks = (query) => {
-    return Promise.resolve(fetchResults)
+    return Promise.resolve()
 }
 
-module.exports = { fetchBooks }
+module.exports = { fetchBooks, bookConfig }
