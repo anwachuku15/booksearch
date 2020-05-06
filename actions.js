@@ -41,11 +41,7 @@ const addToList = (book) => {
         if (readingListData.books.some(exists => exists.title === book.title && util.inspect(exists.author) === util.inspect(book.author))) {
             console.log("You've already added this book to your list.\n")
         } else {
-            readingListData.books.push({
-                title: book.title,
-                author: book.author,
-                publisher: book.publisher
-            })
+            readingListData.books.push(book)
             try {
                 const data = fs.writeFileSync(path.join(__dirname + '/my-reading-list.json'), JSON.stringify(readingListData))
                 let rnd = Math.floor(Math.random() * 4)
