@@ -38,9 +38,14 @@ const fetchBooks = async (query) => {
     }
 }
 
+const getPathToReadingList = () => path.join(__dirname + '/my-reading-list.json')
+const readDataInReadingList = (path) => fs.readFileSync(path, 'utf-8')
+
+
 const addToList = (book) => {
     try {
-        const data = fs.readFileSync(path.join(__dirname + '/my-reading-list.json'), 'utf-8')
+        const data = readDataInReadingList(getPathToReadingList())
+        console.log(data)
         let readingListData = JSON.parse(data)
         if (readingListData.books.some(exists => exists.title === book.title && util.inspect(exists.author) === util.inspect(book.author))) {
             console.log("You've already added this book to your list.\n")

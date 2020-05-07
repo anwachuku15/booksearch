@@ -1,6 +1,5 @@
 const { bookConfig } = require('../actions')
 
-const query = 'harrypotter'
 const fetchResults = {
     items: [
         {
@@ -24,3 +23,4 @@ describe('bookConfig', () => {
         expect(firstBook).toMatchObject(book)
     })
 })
+
