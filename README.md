@@ -17,9 +17,4 @@ Launch the app
 To launch with `booksearch` command, install globally
 `npm install -g`
 
-<<<<<<< HEAD
-To run tests, enter `jest` or `npm test` in your terminal
-=======
 To run tests, enter `jest` or `npm test` in your terminal 
-
->>>>>>> c12ef0b0e696b51959c9f6778c3ed97f042c22ec
