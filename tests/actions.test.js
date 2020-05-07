@@ -1,4 +1,4 @@
-const { bookConfig } = require('../actions')
+const { bookConfig } = require('../actions/fetchBooks')
 
 const fetchResults = {
     items: [

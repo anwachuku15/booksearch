@@ -6,7 +6,10 @@ const emoji = require('emojic')
 const { greeting } = require('../UI/greeting')
 const { showOptions } = require('../UI/options')
 const { displayBooks } = require('../UI/displayBooks')
-const { fetchBooks, addToList, viewList } = require('../actions')
+const { fetchBooks } = require('../actions/fetchBooks')
+const { addToList } = require('../actions/addToList')
+const { viewList } = require('../actions/viewList')
+
 
 const app = async () => {
     let navTo = 'greeting'
