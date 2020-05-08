@@ -1,13 +1,13 @@
 const chalk = require('chalk')
 const path = require('path')
-const { readDataInReadingList } = require('./addToList')
+const { readDataInReadingListFile } = require('./addToList')
 
 const { displayBooks } = require('../UI/displayBooks')
 
 const viewList = () => {
     console.log('\n'+chalk.bold.underline.blue('My Reading List'))
     try {
-        let readingListData = readDataInReadingList(path.join(__dirname + '/../my-reading-list.json'))
+        let readingListData = readDataInReadingListFile(path.join(__dirname + '/../my-reading-list.json'))
         
         if (readingListData.books.length > 0) {
             displayBooks(readingListData.books)
