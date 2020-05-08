@@ -14,7 +14,7 @@ Install all dependencies
 Launch the app
 `node bin/index.js`
 
-To launch with `booksearch` command, install globally
+To launch with the `booksearch` command, install globally
 `npm install -g`
 
 To run tests, enter `jest` or `npm test` in your terminal 
