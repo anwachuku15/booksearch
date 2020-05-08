@@ -1,7 +1,6 @@
 const fetch = require('node-fetch')
 const chalk = require('chalk')
 const ora = require('ora')
-const { apikey } = require('../apikey')
 
 const bookConfig = (res) => {
     const books = []
@@ -20,6 +19,7 @@ const bookConfig = (res) => {
     }
 }
 
+const apikey = 'AIzaSyDQWb5IluUsCJf5fHiRlVHlB_bbwLvsuHY'
 const fetchBooks = async (query) => {
     const url = 'https://www.googleapis.com/books/v1/volumes?q='
     const spinner = ora(`Searching for ${query}...`).start()
