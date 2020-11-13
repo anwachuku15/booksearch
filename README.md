@@ -3,6 +3,7 @@
 This is a command line application that utilizes the Google Books API allowing users to search for books and creating a reading list.
 
 ## Getting Started
+
 Be sure to install Node.js (https://nodejs.org/en/download/)
 
 In your terminal, clone this repository and navigate into the directory
@@ -12,9 +13,9 @@ Install all dependencies
 `npm install`
 
 Launch the app
-`node bin/index.js`
+`npm start` or `node bin/index.js`
 
 To launch with the `booksearch` command, install globally
 `npm install -g`
 
-To run tests, enter `jest` or `npm test` in your terminal 
+To run tests, enter `jest` or `npm test` in your terminal
