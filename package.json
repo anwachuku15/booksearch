@@ -4,7 +4,8 @@
   "description": "Utilizes the Google Books API to allow users to search for books and create a reading list",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "start": "node bin/index.js"
   },
   "author": "Andrew Nwachuku",
   "license": "MIT",
