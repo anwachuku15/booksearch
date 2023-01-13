@@ -19,7 +19,7 @@
     "node-fetch": "^2.6.0",
     "ora": "^4.0.4",
     "readline-sync": "^1.4.10",
-    "terminal-kit": "^1.35.2"
+    "terminal-kit": "^2.1.8"
   },
   "devDependencies": {
     "jest": "^26.0.1"
